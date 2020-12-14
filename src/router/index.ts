@@ -1,5 +1,9 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+
+// import store from "@/store";
+
 import Home from "../views/Home.vue";
+import PageNotFound404 from "../views/PageNotFound404.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -7,14 +11,12 @@ const routes: Array<RouteRecordRaw> = [
     name: "Home",
     component: Home
   },
+
+  // 404 Catcher
   {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+    path: "/:pathMatch(.*)*",
+    name: "Page-Not-Found-404",
+    component: PageNotFound404
   }
 ];
 
@@ -22,5 +24,13 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 });
+
+// Router auth protection code
+// router.beforeEach((to, from, next) => {
+//   // const isAuthenticated = store.getters.
+//   // Check for auth in store
+//   if (to.name !== 'Login' && !isAuthenticated) next({ name: 'Login' })
+//   else next()
+// });
 
 export default router;
